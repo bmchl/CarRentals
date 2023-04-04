@@ -1,0 +1,19 @@
+.page {
+    width: 70vw;
+    margin: auto;
+}
+.header {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40%;
+}
+mat-form-field {
+    width: 50vw;
+    height: 5rem;
+}
+.no-results {
+    margin-top: 2rem;
+    text-align: center;
+}

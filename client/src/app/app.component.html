@@ -3,18 +3,18 @@
     <a class="navbar-brand title" href="/" matTooltip="Retournez à l'accueil">INF3710 - TP4</a>
     <div class="navbar-expand mr-auto">
       <div class="navbar-nav">
-        <a class="nav-item nav-link active" routerLink="/ROUTEUR_À_IMPLÉMENTER">LIEN 1</a>
-        <a class="nav-item nav-link active" routerLink="/ROUTEUR_À_IMPLÉMENTER">LIEN 2</a>
-        <a class="nav-item nav-link active" routerLink="/ROUTEUR_À_IMPLÉMENTER">LIEN 3</a>
+        <a class="nav-item nav-link active" routerLink="/members">Recherche de membres</a>
+        <a class="nav-item nav-link active" routerLink="/reservations">Liste de réservations</a>
+        <a class="nav-item nav-link active" routerLink="/new">Créer une réservation</a>
       </div>
     </div>
   </nav>
 
   <div class="home" *ngIf="route == ''">
     <p>
-      Titre
+      Poly Rent-A-Car
     </p>
-    <button mat-raised-button color="primary" class="btn" routerLink="/ROUTEUR_À_IMPLÉMENTER">Parcourir quelque chose...<mat-icon>arrow_right</mat-icon></button>
+    <button mat-raised-button color="primary" class="btn" routerLink="/reservations">Parcourir les réservations...<mat-icon>arrow_right</mat-icon></button>
   </div>
   <router-outlet></router-outlet>
 </div>

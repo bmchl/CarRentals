@@ -1,0 +1,48 @@
+<div class="page">
+    <section class="header">
+        <h1>Créer une réservation</h1>
+    </section>
+    <section class="form-container">
+        <form [formGroup]="reservationForm">
+            <mat-form-field>
+                <mat-label>Emplacement</mat-label>
+                <input matInput formControlName="location" placeholder="Choisissez un emplacement">
+                <mat-error *ngIf="reservationForm.controls['location'].hasError('required')">
+                    L'emplacement est requis
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Type de véhicule</mat-label>
+                <mat-select formControlName="vehicleType" placeholder="Choisissez un type de véhicule">
+                    <mat-option value="hybride">Hybride</mat-option>
+                    <mat-option value="berline">Berline</mat-option>
+                    <mat-option value="mini-camionnette">Mini-camionnette</mat-option>
+                </mat-select>
+                <mat-error *ngIf="reservationForm.controls['vehicleType'].hasError('required')">
+                    Le type de véhicule est requis
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dateTime"
+                    placeholder="Choose a date and time">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="reservationForm.controls['dateTime'].hasError('required')">
+                    La date est requise
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Demandes supplémentaires</mat-label>
+                <input matInput formControlName="requirements" placeholder="Entrez vos demandes supplémentaires">
+            </mat-form-field>
+
+            <div class="button-container">
+                <button mat-raised-button color="primary" (click)="submit()">Soumettre</button>
+            </div>
+        </form>
+    </section>
+</div>

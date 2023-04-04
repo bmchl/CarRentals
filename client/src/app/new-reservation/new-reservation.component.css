@@ -1,0 +1,19 @@
+.page {
+    width: 70vw;
+    margin: auto;
+}
+
+.header {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40%;
+}
+
+form {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

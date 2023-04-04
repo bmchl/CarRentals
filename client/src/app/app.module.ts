@@ -8,10 +8,16 @@ import { AppComponent } from "./app.component";
 import { CommunicationService } from "./services/communication.service";
 import { AppMaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MemberSearchComponent } from './member-search/member-search.component';
+import { ReservationsListComponent } from './reservations-list/reservations-list.component';
+import { NewReservationComponent } from './new-reservation/new-reservation.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MemberSearchComponent,
+    ReservationsListComponent,
+    NewReservationComponent
   ],
   imports: [
     CommonModule,

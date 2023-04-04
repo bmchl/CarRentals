@@ -1,0 +1,12 @@
+.page {
+    width: 70vw;
+    margin: auto;
+}
+.header {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40%;
+}
