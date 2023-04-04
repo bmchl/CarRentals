@@ -12,17 +12,22 @@
                 </mat-error>
             </mat-form-field>
 
+
             <mat-form-field>
-                <mat-label>Type de véhicule</mat-label>
-                <mat-select formControlName="vehicleType" placeholder="Choisissez un type de véhicule">
-                    <mat-option value="hybride">Hybride</mat-option>
-                    <mat-option value="berline">Berline</mat-option>
-                    <mat-option value="mini-camionnette">Mini-camionnette</mat-option>
+                <mat-label>Véhicule de préférence</mat-label>
+                <mat-select formControlName="vehiclePK" placeholder="Choisissez un véhicule">
+                <mat-optgroup *ngFor="let type of vehicles" [label]="group.name">
+                    <mat-option *ngFor="let vehicle of type.vehicles" [value]="vehicle.immatriculation">
+                        {{vehicle.marque}} {{vehicle.modele}}
+                    </mat-option>
+                </mat-optgroup>
                 </mat-select>
                 <mat-error *ngIf="reservationForm.controls['vehicleType'].hasError('required')">
                     Le type de véhicule est requis
                 </mat-error>
             </mat-form-field>
+
+            
 
             <mat-form-field>
                 <mat-label>Date</mat-label>

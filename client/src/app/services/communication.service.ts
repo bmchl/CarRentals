@@ -2,6 +2,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject, catchError, of } from "rxjs";
 import { Reservation } from "../../../../common/reservation";
+import { Vehicle } from "../../../../common/vehicle";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable()
@@ -31,7 +32,23 @@ export class CommunicationService {
   public insertReservation(reservation: Reservation): Observable<number> {
     return this.http
       .post<number>(this.BASE_URL + "/reservations/insert", reservation)
-      .pipe(catchError(this.handleError<number>("insertHotel")));
+      .pipe(catchError(this.handleError<number>("insertReservation")));
+  }
+
+  getHybridPKs(): Observable<Vehicle[]> {
+    return this.http
+      .get<Vehicle[]>(this.BASE_URL + "/hybrids")
+      .pipe(catchError(this.handleError<Vehicle[]>("getHybrids")));
+  }
+  getSedanPKs(): Observable<Vehicle[]> {
+    return this.http
+      .get<Vehicle[]>(this.BASE_URL + "/sedans")
+      .pipe(catchError(this.handleError<Vehicle[]>("getSedans")));
+  }
+  getSuvPKs(): Observable<Vehicle[]> {
+    return this.http
+      .get<Vehicle[]>(this.BASE_URL + "/suvs")
+      .pipe(catchError(this.handleError<Vehicle[]>("getSedans")));
   }
 
   // À DÉCOMMENTER ET À UTILISER LORSQUE VOTRE COMMUNICATION EST IMPLÉMENTÉE

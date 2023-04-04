@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Reservation } from '../../../../common/reservation';
 import { CommunicationService } from '../services/communication.service';
 import { Router } from '@angular/router';
+import { Vehicle } from '../../../../common/vehicle';
+import { VehicleType } from './vehicle-type';
 
 @Component({
   selector: 'app-new-reservation',
@@ -11,15 +13,37 @@ import { Router } from '@angular/router';
 })
 export class NewReservationComponent {
   reservationForm: FormGroup;
+  vehicles: VehicleType[] = [{
+name: 'Hybride', vehicles: []
+  },
+    {
+      name: 'Berline', vehicles: []
+    },
+    {
+      name: 'Mini-camionnette', vehicles: []
+    }];
    constructor(private zone: NgZone, private router: Router, private communicationService: CommunicationService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.reservationForm = this.fb.group({
       location: ['', Validators.required],
       vehicleType: ['', Validators.required],
+      vehiclePK: ['', Validators.required],
       dateTime: ['', Validators.required],
       requirements: ['']
     });
+    this.communicationService.getHybridPKs().subscribe((res: Vehicle[]) => {
+      this.vehicles[0].vehicles = res;
+    }
+    );
+    this.communicationService.getSedanPKs().subscribe((res: Vehicle[]) => {
+      this.vehicles[1].vehicles = res;
+    }
+    );
+    this.communicationService.getSuvPKs().subscribe((res: Vehicle[]) => {
+      this.vehicles[2].vehicles = res;
+    }
+    );
   }
 
   submit() {
