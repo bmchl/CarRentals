@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    @ViewChild('usernameInput') usernameInput: ElementRef<HTMLInputElement>;
-    @ViewChild('passwordInput') passwordInput: ElementRef<HTMLInputElement>;
     @ViewChild('invalidInput') invalidInput: ElementRef<HTMLHeadingElement>
   username: string;
   password: string;
@@ -28,7 +26,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
       }
       else{
-          this.invalidInput.nativeElement.textContent = 'Veuillez entrer un untilisateur et mot de passe valides';
+          this.invalidInput.nativeElement.textContent = 'Le numéro de membre ou mot de passe entré est invalide. Veuillez réessayer.';
       }
   }
 }

@@ -1,12 +1,13 @@
 
 <div class = "page">
+  <h1 class="title">Connexion</h1>
   <h1 #invalidInput id="invalidInput"></h1>
     <mat-form-field class="input-field">
-      <mat-label for="username">Username:</mat-label>
+      <mat-label for="username">Numéro de membre</mat-label>
       <input matInput type="text" id="username" name="username" [(ngModel)]="username">
     </mat-form-field>
     <mat-form-field class="input-field">
-      <mat-label for="password">Password:</mat-label>
+      <mat-label for="password">Mot de passe</mat-label>
       <input matInput type="password" id="password" name="password" [(ngModel)]="password">
     </mat-form-field>
     <button mat-raised-button type="submit" value="Confirm" (click)="this.clickConfirm()">Confirmer</button>

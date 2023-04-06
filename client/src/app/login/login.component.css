@@ -10,3 +10,7 @@
     flex-direction: column;
     align-content: space-between;
 }
+.title{
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
