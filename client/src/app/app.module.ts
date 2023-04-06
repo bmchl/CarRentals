@@ -11,13 +11,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MemberSearchComponent } from './member-search/member-search.component';
 import { ReservationsListComponent } from './reservations-list/reservations-list.component';
 import { NewReservationComponent } from './new-reservation/new-reservation.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MemberSearchComponent,
     ReservationsListComponent,
-    NewReservationComponent
+    NewReservationComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

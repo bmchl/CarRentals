@@ -1,6 +1,5 @@
 export interface Member {
-    id: number;
-    permit?: number;
-    fname: string;
-    lname: string;
+    nummembre: number;
+    prenom: string;
+    nomfamille: string;
 }

@@ -1,6 +1,7 @@
 import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { AuthenticationService } from "./services/authentication.service";
 
 @Component({
   selector: "app-root",
@@ -10,7 +11,7 @@ import { Router } from "@angular/router";
 export class AppComponent implements OnInit {
     public route: string;
 
-    public constructor(location: Location, router: Router) {
+    public constructor(location: Location, router: Router, public auth: AuthenticationService) {
         router.events.subscribe((_val: any) => {
             if (location.path() !== "") {
               this.route = location.path();

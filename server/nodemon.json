@@ -2,5 +2,5 @@
     "watch": ["app"],
     "ext": "ts",
     "ignore": ["app/**/*.spec.ts"],
-    "exec": "npm run build && node --inspect out/www.js"
+    "exec": "npm run build && node --inspect out/server/app/www.js"
 }

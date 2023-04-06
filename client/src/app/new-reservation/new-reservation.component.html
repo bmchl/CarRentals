@@ -5,38 +5,45 @@
     <section class="form-container">
         <form [formGroup]="reservationForm">
             <mat-form-field>
+                <mat-select formControlName="location"
+                    placeholder="Choisissez un emplacement">
+                        <mat-option *ngFor="let location of this.locations" [value]="location.emplacementid">
+                            {{location.numrue}} {{location.rue}}
+                        </mat-option>
+                </mat-select>
                 <mat-label>Emplacement</mat-label>
-                <input matInput formControlName="location" placeholder="Choisissez un emplacement">
                 <mat-error *ngIf="reservationForm.controls['location'].hasError('required')">
                     L'emplacement est requis
                 </mat-error>
             </mat-form-field>
 
-
             <mat-form-field>
-                <mat-label>Véhicule de préférence</mat-label>
-                <mat-select formControlName="vehiclePK" placeholder="Choisissez un véhicule">
-                <mat-optgroup *ngFor="let type of vehicles" [label]="group.name">
-                    <mat-option *ngFor="let vehicle of type.vehicles" [value]="vehicle.immatriculation">
-                        {{vehicle.marque}} {{vehicle.modele}}
-                    </mat-option>
-                </mat-optgroup>
-                </mat-select>
-                <mat-error *ngIf="reservationForm.controls['vehicleType'].hasError('required')">
-                    Le type de véhicule est requis
+                <mat-label>Période</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate formControlName="startDate" placeholder="Date de début">
+                    <input matEndDate formControlName="endDate" placeholder="Date de fin">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error
+                    *ngIf="reservationForm.controls['startDate'].hasError('required') || reservationForm.controls['endDate'].hasError('required')">
+                    Les dates de début et de fin sont requises
                 </mat-error>
             </mat-form-field>
 
-            
-
             <mat-form-field>
-                <mat-label>Date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="dateTime"
-                    placeholder="Choose a date and time">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="reservationForm.controls['dateTime'].hasError('required')">
-                    La date est requise
+                <mat-label>
+                    Véhicule de préférence</mat-label>
+                <mat-select formControlName="vehiclePK"
+                    [placeholder]="(this.vehicles[0].vehicles.length === 0 && this.vehicles[1].vehicles.length === 0 && this.vehicles[2].vehicles.length === 0) ? 'Aucun véhicule disponible':'Choisissez un véhicule'">
+                    <mat-optgroup *ngFor="let type of vehicles" [label]="type.name">
+                        <mat-option *ngFor="let vehicle of type.vehicles" [value]="vehicle.immatriculation">
+                            {{vehicle.marque}} {{vehicle.modele}} ({{vehicle.immatriculation}})
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-select>
+                <mat-error *ngIf="reservationForm.controls['vehiclePK'].hasError('required')">
+                    Le véhicule est requis
                 </mat-error>
             </mat-form-field>
 

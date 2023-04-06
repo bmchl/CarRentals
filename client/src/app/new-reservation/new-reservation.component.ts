@@ -4,7 +4,9 @@ import { Reservation } from '../../../../common/reservation';
 import { CommunicationService } from '../services/communication.service';
 import { Router } from '@angular/router';
 import { Vehicle } from '../../../../common/vehicle';
+import { LocationPK } from '../../../../common/location';
 import { VehicleType } from './vehicle-type';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-new-reservation',
@@ -13,46 +15,73 @@ import { VehicleType } from './vehicle-type';
 })
 export class NewReservationComponent {
   reservationForm: FormGroup;
-  vehicles: VehicleType[] = [{
-name: 'Hybride', vehicles: []
-  },
+  vehicles: VehicleType[] = [
+    {
+      name: 'Hybride', vehicles: []
+    },
     {
       name: 'Berline', vehicles: []
     },
     {
       name: 'Mini-camionnette', vehicles: []
-    }];
-   constructor(private zone: NgZone, private router: Router, private communicationService: CommunicationService, private fb: FormBuilder) { }
+    }
+  ];
+  locations: LocationPK[];
+   constructor(private zone: NgZone, private router: Router, private communicationService: CommunicationService, private fb: FormBuilder, public auth: AuthenticationService) { }
 
   ngOnInit() {
     this.reservationForm = this.fb.group({
       location: ['', Validators.required],
-      vehicleType: ['', Validators.required],
       vehiclePK: ['', Validators.required],
-      dateTime: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
       requirements: ['']
     });
-    this.communicationService.getHybridPKs().subscribe((res: Vehicle[]) => {
+    this.communicationService.getLocationPKs().subscribe((res: LocationPK[]) => {
+      this.locations = res;
+    });
+    this.reservationForm.controls.vehiclePK.disable();
+    
+    this.reservationForm.controls.location.valueChanges.subscribe((value: string) => {
+      if (this.reservationForm.value.startDate && this.reservationForm.value.endDate) {
+        this.fetchVehicles(value, this.reservationForm.value.startDate, this.reservationForm.value.endDate);
+        this.reservationForm.controls.vehiclePK.enable();
+      }
+    });
+    this.reservationForm.controls.startDate.valueChanges.subscribe((value: Date) => {
+      if (this.reservationForm.value.location && this.reservationForm.value.endDate) {
+        this.fetchVehicles(this.reservationForm.value.location, value, this.reservationForm.value.endDate);
+        this.reservationForm.controls.vehiclePK.enable();
+      }
+    });
+    this.reservationForm.controls.endDate.valueChanges.subscribe((value: Date) => {
+      if (this.reservationForm.value.startDate && this.reservationForm.value.location) {
+        this.fetchVehicles(this.reservationForm.value.location, this.reservationForm.value.startDate, value);
+        this.reservationForm.controls.vehiclePK.enable();
+      }
+    });
+  }
+
+  fetchVehicles(location: string, startDate: Date, endDate: Date) {
+    this.communicationService.getHybridPKs(location, startDate, endDate).subscribe((res: Vehicle[]) => {
       this.vehicles[0].vehicles = res;
-    }
-    );
-    this.communicationService.getSedanPKs().subscribe((res: Vehicle[]) => {
+    });
+    this.communicationService.getSedanPKs(location, startDate, endDate).subscribe((res: Vehicle[]) => {
       this.vehicles[1].vehicles = res;
-    }
-    );
-    this.communicationService.getSuvPKs().subscribe((res: Vehicle[]) => {
+    });
+    this.communicationService.getSuvPKs(location, startDate, endDate).subscribe((res: Vehicle[]) => {
       this.vehicles[2].vehicles = res;
-    }
-    );
+    });
   }
 
   submit() {
-    if (this.reservationForm.valid) {
+    if (this.reservationForm.valid && this.auth.loggedIn) {
       const newReservation: Reservation = {
-        location: this.reservationForm.value.location,
-        vehicleType: this.reservationForm.value.vehicleType,
-        dateTime: this.reservationForm.value.dateTime,
-        requirements: this.reservationForm.value.requirements
+        datedebutres: this.reservationForm.value.startDate,
+        datefinres: this.reservationForm.value.endDate,
+        nummembrereserve: parseInt(this.auth.memberId as string),
+        immatriculationvehicule: this.reservationForm.value.vehiclePK,
+        exigencessupplementaires: this.reservationForm.value.requirements,
       };
       this.communicationService.insertReservation(newReservation).subscribe((res: number) => {
         if (res > 0) {
@@ -62,6 +91,9 @@ name: 'Hybride', vehicles: []
           this.router.navigate(['/reservations']);
         });
       });
+    }
+    else {
+      window.alert('Veuillez vous connecter pour réserver un véhicule.');
     }
   }
 }

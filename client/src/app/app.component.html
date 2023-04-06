@@ -5,7 +5,7 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link active" routerLink="/members">Recherche de membres</a>
         <a class="nav-item nav-link active" routerLink="/reservations">Liste de réservations</a>
-        <a class="nav-item nav-link active" routerLink="/new">Créer une réservation</a>
+        <a class="nav-item nav-link active" routerLink="/login">{{this.auth.memberId ? 'Se déconnecter' : 'Se connecter'}}</a>
       </div>
     </div>
   </nav>

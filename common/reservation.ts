@@ -1,6 +1,8 @@
 export interface Reservation {
-    location: string;
-    vehicleType: string;
-    dateTime: string;
-    requirements?: string;
+    reservationid?: number,
+    datedebutres: string;
+    datefinres: string;
+    nummembrereserve: number;
+    immatriculationvehicule: number;
+    exigencessupplementaires: string;
 }
