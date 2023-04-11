@@ -35,4 +35,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     </section>
+    <section class="no-results">
+        <p *ngIf="data.length == 0">Aucune réservation trouvée</p>
+    </section>
 </div>

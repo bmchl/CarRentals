@@ -14,12 +14,19 @@ export class AuthenticationService {
     this.loggedIn = false;
   }
   
-  async authenticateUser(username: string, password: string) {
-    this.communicationService.authenticateUser(username, password).subscribe((data) => {
-      this.loggedIn = data;
-      if (this.loggedIn) {
-        this.memberId = username;
-      }
+  async authenticateUser(username: string, password: string): Promise<boolean> {
+    return new Promise<boolean>((res) => {
+      this.communicationService.authenticateUser(username, password).subscribe((data) => {
+        console.log(data);
+        if (data === 1) {
+          this.loggedIn = true;
+          this.memberId = username;
+        } else if (data === 0 || data === -1) {
+          this.loggedIn = false;
+          this.memberId = null;
+        }
+        res(this.loggedIn);
+      });
     });
   }
 

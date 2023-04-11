@@ -81,10 +81,10 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<LocationPK[]>("getLocations")));
   }
 
-  authenticateUser(username: string, password: string): Observable<boolean> {
+  authenticateUser(username: string, password: string): Observable<number> {
     return this.http
-      .get<boolean>(this.BASE_URL + `/authenticate?username=${username}&password=${password}`)
-      .pipe(catchError(this.handleError<boolean>("authenticateUser")));
+      .get<number>(this.BASE_URL + `/authenticate?username=${username}&password=${password}`)
+      .pipe(catchError(this.handleError<number>("authenticateUser")));
   }
 
   private handleError<T>(

@@ -88,12 +88,13 @@ export class NewReservationComponent {
           this.communicationService.filter("update");
         }
         this.zone.run(() => {
+          window.alert("Votre réservation a été effectuée avec succès.");
           this.router.navigate(['/reservations']);
         });
       });
     }
     else {
-      window.alert('Veuillez vous connecter pour réserver un véhicule.');
+      window.alert('Veuillez vous connecter et fournir toutes les informations nécessaires pour réserver un véhicule.');
     }
   }
 }

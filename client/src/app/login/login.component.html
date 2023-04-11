@@ -1,14 +1,16 @@
 
 <div class = "page">
   <h1 class="title">Connexion</h1>
-  <h1 #invalidInput id="invalidInput"></h1>
     <mat-form-field class="input-field">
       <mat-label for="username">Numéro de membre</mat-label>
-      <input matInput type="text" id="username" name="username" [(ngModel)]="username">
+      <input matInput type="text" id="username" name="username" [(ngModel)]="username" [formControl]="usernameValidator" value="1">
+      <mat-error *ngIf="usernameValidator.hasError('required')">Le numéro de membre est requis</mat-error>
+      <mat-error *ngIf="usernameValidator.hasError('pattern')">Le numéro de membre doit être un nombre</mat-error>
     </mat-form-field>
     <mat-form-field class="input-field">
       <mat-label for="password">Mot de passe</mat-label>
-      <input matInput type="password" id="password" name="password" [(ngModel)]="password">
+      <input matInput type="password" id="password" name="password" [(ngModel)]="password" (keydown.enter)="this.authenticate()" [formControl]="passwordValidator" value = "password">
+      <mat-error *ngIf="passwordValidator.hasError('required')">Le mot de passe est requis</mat-error>
     </mat-form-field>
-    <button mat-raised-button type="submit" value="Confirm" (click)="this.clickConfirm()">Confirmer</button>
+    <button mat-raised-button (click)="this.authenticate()">Confirmer</button>
 </div>
